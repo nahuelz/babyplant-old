@@ -1,0 +1,45 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: app_babyplant_old
+    ports:
+      - "8096:80"
+    volumes:
+      - .:/var/www/html
+    networks:
+      - cliente_net
+
+  mariadb:
+    image: mariadb:10.6
+    container_name: mariadb_babyplant_old
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+      MYSQL_DATABASE: babyplant_old
+    volumes:
+      - mysql_data:/var/lib/mysql
+    ports:
+      - "3314:3306"  # Puerto expuesto solo si lo necesitas
+    networks:
+      - cliente_net
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: phpmyadmin_babyplant_old
+    environment:
+      PMA_HOST: mariadb_babyplant_old
+    ports:
+      - "8097:80"  # Accedés desde http://localhost:8082
+    depends_on:
+      - mariadb
+    networks:
+      - cliente_net
+
+volumes:
+  mysql_data:
+
+networks:
+  cliente_net:
+    driver: bridge

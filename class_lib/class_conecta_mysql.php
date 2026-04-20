@@ -1,10 +1,10 @@
 <?php
 error_reporting(0);
 
-$host = "127.0.0.1"; /* Host name */
-$user = "root"; /* User */
-$password = ""; /* Password */
-$dbname = "babyplant"; /* Database name */
+$host = "mariadb";   // 👈 esto es clave
+$user = "root";
+$password = "20580999nZ!";
+$dbname = "babyplant_old"; // 👈 OJO con esto también
 
   
 ?>
